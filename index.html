@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Om Mahale | Data Analyst & AI/ML Developer</title>
+<meta name="description" content="Explore data analytics dashboards and AI/ML projects by Om Mahale, built with Python, SQL, Power BI, Tableau, and machine learning.">
+<meta property="og:title" content="Om Mahale | Data Analyst & AI/ML Developer">
+<meta property="og:description" content="Data analytics, dashboard, Python, and machine learning projects by Om Mahale.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ---------- design tokens (from styles.css) ---------- */
+  :root {
+    --radius: 0.5rem;
+    --background: oklch(0.115 0.018 255);
+    --foreground: oklch(0.94 0.008 245);
+    --card: oklch(0.16 0.022 255);
+    --card-foreground: oklch(0.94 0.008 245);
+    --primary: oklch(0.82 0.145 193);
+    --primary-foreground: oklch(0.11 0.02 255);
+    --secondary: oklch(0.2 0.025 255);
+    --secondary-foreground: oklch(0.9 0.01 245);
+    --muted: oklch(0.19 0.02 255);
+    --muted-foreground: oklch(0.66 0.022 250);
+    --accent: oklch(0.82 0.145 193);
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: oklch(0.984 0.003 247.858);
+    --border: oklch(0.3 0.027 250);
+    --input: oklch(0.25 0.025 250);
+    --ring: oklch(0.82 0.145 193);
+    --surface: oklch(0.145 0.02 255);
+    --surface-raised: oklch(0.18 0.024 255);
+    --violet: oklch(0.72 0.17 300);
+    --shadow-neon: 0 0 18px color-mix(in oklab, var(--primary) 14%, transparent);
+    --shadow-neon-strong: 0 0 24px color-mix(in oklab, var(--primary) 24%, transparent);
+    --font-display: "Space Grotesk", sans-serif;
+    --font-sans: "Inter", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3 { font-family: var(--font-display); margin: 0; }
+  p { margin: 0; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  ::selection { background: color-mix(in oklab, var(--primary) 28%, transparent); }
+
+  .section-shell { width: min(1120px, calc(100% - 2rem)); margin-inline: auto; }
+
+  .tech-grid {
+    background-image:
+      linear-gradient(color-mix(in oklab, var(--primary) 5%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, var(--primary) 5%, transparent) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .card-lift {
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in oklab, var(--primary) 55%, transparent);
+    box-shadow: var(--shadow-neon);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  /* ---------- buttons (button.tsx variants) ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+    border: 1px solid transparent;
+    padding: 0.65rem 1.5rem;
+    background: none;
+    font-family: var(--font-sans);
+  }
+  .btn svg { width: 1rem; height: 1rem; flex-shrink: 0; }
+  .btn-lg { height: 2.75rem; padding: 0 2rem; }
+  .btn-icon { height: 2.25rem; width: 2.25rem; padding: 0; }
+
+  .btn-neon {
+    border-color: color-mix(in oklab, var(--primary) 70%, transparent);
+    background: color-mix(in oklab, var(--primary) 10%, transparent);
+    color: var(--foreground);
+    box-shadow: var(--shadow-neon);
+  }
+  .btn-neon:hover {
+    border-color: var(--primary);
+    background: color-mix(in oklab, var(--primary) 15%, transparent);
+    box-shadow: var(--shadow-neon-strong);
+  }
+
+  .btn-neon-outline {
+    border-color: var(--border);
+    background: color-mix(in oklab, var(--surface) 70%, transparent);
+    color: var(--foreground);
+  }
+  .btn-neon-outline:hover {
+    border-color: color-mix(in oklab, var(--primary) 70%, transparent);
+    color: var(--primary);
+    box-shadow: var(--shadow-neon);
+  }
+
+  .btn-ghost { color: var(--foreground); }
+  .btn-ghost:hover { background: var(--accent); color: var(--primary-foreground); }
+
+  /* ---------- header / nav ---------- */
+  header {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    background: color-mix(in oklab, var(--background) 85%, transparent);
+    backdrop-filter: blur(20px);
+  }
+  nav.mainnav {
+    display: flex;
+    height: 4rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+  .logo .accent { color: var(--primary); }
+  .logo .muted { color: var(--muted-foreground); }
+  .nav-links { display: none; align-items: center; gap: 1.75rem; }
+  .nav-links a { font-size: 0.9rem; text-transform: capitalize; color: var(--muted-foreground); transition: color 150ms ease; }
+  .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+  .menu-toggle { display: inline-flex; }
+  .mobile-menu { display: none; border-top: 1px solid var(--border); background: var(--background); padding: 1rem; }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a { display: block; padding: 0.75rem 0; font-size: 0.9rem; text-transform: capitalize; color: var(--muted-foreground); }
+  .mobile-menu a:hover { color: var(--primary); }
+
+  @media (min-width: 768px) {
+    .nav-links { display: flex; }
+    .menu-toggle { display: none; }
+    .mobile-menu { display: none !important; }
+  }
+
+  /* ---------- hero ---------- */
+  #about.hero {
+    position: relative;
+    display: flex;
+    min-height: 92svh;
+    align-items: center;
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 50%, transparent);
+    padding-top: 4rem;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--background) 30%, color-mix(in oklab, var(--background) 55%, transparent) 65%, transparent 100%);
+  }
+  .hero-content { position: relative; z-index: 10; padding-block: 6rem; }
+  .badge {
+    margin-bottom: 1.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid color-mix(in oklab, var(--primary) 30%, transparent);
+    background: color-mix(in oklab, var(--primary) 5%, transparent);
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--primary);
+  }
+  .badge-dot { width: 0.375rem; height: 0.375rem; border-radius: 999px; background: var(--primary); box-shadow: var(--shadow-neon); }
+  .eyebrow { margin-bottom: 1rem; font-family: monospace; font-size: 0.9rem; color: var(--primary); }
+  .hero h1 { max-width: 56rem; font-size: 3rem; font-weight: 700; line-height: 1.05; }
+  .hero h1 .accent { color: var(--primary); }
+  .hero-role { margin-top: 1.5rem; max-width: 42rem; font-size: 1.35rem; font-weight: 500; color: color-mix(in oklab, var(--foreground) 90%, transparent); }
+  .hero-desc { margin-top: 1.25rem; max-width: 38rem; font-size: 1rem; line-height: 1.75; color: var(--muted-foreground); }
+  .hero-actions { margin-top: 2.25rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .scroll-cue { position: absolute; bottom: -4rem; left: 0; display: none; color: var(--muted-foreground); }
+  .scroll-cue:hover { color: var(--primary); }
+  .scroll-cue svg { width: 1.25rem; height: 1.25rem; animation: bounce 1.4s infinite; }
+  @media (min-width: 640px) { .scroll-cue { display: block; } .hero h1 { font-size: 4rem; } }
+  @media (min-width: 1024px) { .hero h1 { font-size: 6rem; } }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+  /* ---------- profile section ---------- */
+  .profile { border-bottom: 1px solid color-mix(in oklab, var(--border) 50%, transparent); padding-block: 5rem; }
+  .profile .section-shell { display: grid; gap: 2.5rem; }
+  .label { margin-bottom: 0.75rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--primary); }
+  .label-violet { color: var(--violet); }
+  .profile h2 { font-size: 1.875rem; font-weight: 700; }
+  .profile p.body { font-size: 1.125rem; line-height: 2; color: var(--muted-foreground); }
+  .meta-row { margin-top: 1.75rem; display: flex; flex-wrap: wrap; gap: 1.75rem 1.75rem; font-size: 0.9rem; }
+  .meta-row span { display: flex; align-items: center; gap: 0.5rem; color: var(--muted-foreground); }
+  .meta-row svg { width: 1rem; height: 1rem; color: var(--primary); }
+  @media (min-width: 1024px) { .profile .section-shell { grid-template-columns: 1fr 1.25fr; } }
+
+  /* ---------- projects ---------- */
+  .projects { padding-block: 6rem; }
+  .projects-head { margin-bottom: 3.5rem; }
+  .projects-head h2 { font-size: 2.25rem; font-weight: 700; }
+  .projects-head p { margin-top: 1rem; max-width: 36rem; color: var(--muted-foreground); }
+  @media (min-width: 640px) { .projects-head h2 { font-size: 3rem; } }
+  .project-group { margin-bottom: 4rem; }
+  .project-group:last-child { margin-bottom: 0; }
+  .group-head { margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; }
+  .group-head.cyan { color: var(--primary); }
+  .group-head.violet { color: var(--violet); }
+  .group-head svg { width: 1rem; height: 1rem; }
+  .group-line { height: 1px; flex: 1; }
+  .group-line.cyan { background: color-mix(in oklab, var(--primary) 20%, transparent); }
+  .group-line.violet { background: color-mix(in oklab, var(--violet) 20%, transparent); }
+  .project-grid { display: grid; gap: 1rem; }
+  @media (min-width: 768px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .project-grid { grid-template-columns: repeat(3, 1fr); } }
+  .project-card {
+    display: flex; flex-direction: column;
+    min-height: 16rem;
+    border: 1px solid var(--border);
+    background: color-mix(in oklab, var(--card) 85%, transparent);
+    padding: 1.5rem;
+  }
+  .project-card .idx { font-family: monospace; font-size: 0.75rem; }
+  .project-card .idx.cyan { color: var(--primary); }
+  .project-card .idx.violet { color: var(--violet); }
+  .project-card h3 { margin-top: 1.75rem; font-size: 1.25rem; font-weight: 600; }
+  .project-card p { margin-top: 0.75rem; flex: 1; font-size: 0.9rem; line-height: 1.5; color: var(--muted-foreground); }
+  .tool-tags { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tool-tags span { border: 1px solid; padding: 0.2rem 0.5rem; font-size: 0.68rem; }
+  .tool-tags span.cyan { border-color: color-mix(in oklab, var(--primary) 20%, transparent); color: var(--primary); }
+  .tool-tags span.violet { border-color: color-mix(in oklab, var(--violet) 20%, transparent); color: var(--violet); }
+
+  /* ---------- skills ---------- */
+  .skills-section { border-top: 1px solid color-mix(in oklab, var(--border) 50%, transparent); border-bottom: 1px solid color-mix(in oklab, var(--border) 50%, transparent); background: var(--surface); padding-block: 6rem; }
+  .skills-section .section-shell { display: grid; gap: 3rem; }
+  .skills-section h2 { font-size: 2.25rem; font-weight: 700; }
+  .skills-section .intro p { margin-top: 1rem; max-width: 24rem; line-height: 1.7; color: var(--muted-foreground); }
+  .skill-pills { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 0.75rem; }
+  .skill-pills span {
+    border: 1px solid var(--border);
+    background: color-mix(in oklab, var(--background) 60%, transparent);
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    transition: all 150ms ease;
+  }
+  .skill-pills span:hover { border-color: color-mix(in oklab, var(--primary) 60%, transparent); color: var(--primary); box-shadow: var(--shadow-neon); }
+  @media (min-width: 1024px) { .skills-section .section-shell { grid-template-columns: 0.75fr 1.25fr; } }
+
+  /* ---------- education ---------- */
+  .education { padding-block: 6rem; }
+  .education .section-shell { display: grid; gap: 4rem; }
+  .education h2 { margin-bottom: 2.25rem; font-size: 2.25rem; font-weight: 700; }
+  @media (min-width: 1024px) { .education .section-shell { grid-template-columns: 1fr 1fr; } }
+
+  .timeline-item { position: relative; margin-left: 0.5rem; border-left: 1px solid var(--border); padding-bottom: 2rem; padding-left: 1.75rem; }
+  .timeline-item.last { border-color: transparent; padding-bottom: 0; }
+  .timeline-dot { position: absolute; left: -0.25rem; top: 0.375rem; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--primary); box-shadow: var(--shadow-neon); }
+  .timeline-item .year { font-family: monospace; font-size: 0.75rem; color: var(--primary); }
+  .timeline-item h3 { margin-top: 0.5rem; font-size: 1.125rem; font-weight: 600; }
+  .timeline-item .detail { margin-top: 0.25rem; font-size: 0.9rem; line-height: 1.6; color: var(--muted-foreground); }
+
+  .cert-list { display: grid; gap: 0.75rem; }
+  .cert-item { display: flex; align-items: center; gap: 1rem; border: 1px solid var(--border); background: var(--card); padding: 1rem; }
+  .cert-item .num { font-family: monospace; font-size: 0.75rem; color: var(--violet); }
+  .cert-item .name { font-weight: 500; }
+  .fuel-note { margin-top: 2rem; border-left: 2px solid color-mix(in oklab, var(--primary) 50%, transparent); padding-left: 1.25rem; }
+  .fuel-note p:first-child { font-size: 0.9rem; font-weight: 600; }
+  .fuel-note p:last-child { margin-top: 0.25rem; font-size: 0.9rem; color: var(--muted-foreground); }
+
+  /* ---------- contact ---------- */
+  .contact { border-top: 1px solid color-mix(in oklab, var(--border) 50%, transparent); background: var(--surface); padding-block: 6rem; text-align: center; }
+  .contact h2 { margin: 0 auto; max-width: 48rem; font-size: 2.25rem; font-weight: 700; }
+  .contact p.sub { margin: 1.25rem auto 0; max-width: 34rem; color: var(--muted-foreground); }
+  @media (min-width: 640px) { .contact h2 { font-size: 3rem; } }
+  .contact-actions { margin: 2.25rem auto 0; display: flex; width: fit-content; max-width: 100%; flex-direction: column; align-items: stretch; gap: 0.75rem; }
+  @media (min-width: 640px) { .contact-actions { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; } }
+
+  /* ---------- footer ---------- */
+  footer { border-top: 1px solid color-mix(in oklab, var(--border) 50%, transparent); padding-block: 1.75rem; }
+  footer .section-shell { display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem; font-size: 0.75rem; color: var(--muted-foreground); }
+  @media (min-width: 640px) { footer .section-shell { flex-direction: row; } }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="mainnav section-shell" aria-label="Main navigation">
+    <a href="#about" class="logo"><span class="accent">OM</span><span class="muted"> Mahale</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" data-nav="about" class="active">about</a>
+      <a href="#projects" data-nav="projects">projects</a>
+      <a href="#skills" data-nav="skills">skills</a>
+      <a href="#education" data-nav="education">education</a>
+      <a href="#contact" data-nav="contact">contact</a>
+    </div>
+    <button class="btn btn-ghost btn-icon menu-toggle" id="menuToggle" aria-label="Open menu">
+      <i data-lucide="menu" id="menuIcon"></i>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" data-nav-mobile>about</a>
+    <a href="#projects" data-nav-mobile>projects</a>
+    <a href="#skills" data-nav-mobile>skills</a>
+    <a href="#education" data-nav-mobile>education</a>
+    <a href="#contact" data-nav-mobile>contact</a>
+  </div>
+</header>
+
+<main>
+
+  <section id="about" class="hero">
+    <div class="hero-bg tech-grid"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content section-shell">
+      <div class="badge"><span class="badge-dot"></span>Available for opportunities</div>
+      <p class="eyebrow">Hello, I'm</p>
+      <h1>Om Khushalchandra<br><span class="accent">Mahale</span></h1>
+      <p class="hero-role">Data Analyst &amp; AI/ML Developer</p>
+      <p class="hero-desc">I transform structured data into clear insights, decision-ready dashboards, and practical machine learning solutions.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-neon btn-lg">View projects <i data-lucide="arrow-right"></i></a>
+        <a href="#" download class="btn btn-neon-outline btn-lg">Download résumé <i data-lucide="download"></i></a>
+      </div>
+      <a href="#projects" aria-label="Scroll to projects" class="scroll-cue"><i data-lucide="arrow-down"></i></a>
+    </div>
+  </section>
+
+  <section class="profile">
+    <div class="section-shell">
+      <div>
+        <p class="label">Profile / 01</p>
+        <h2>Turning raw data into<br>clear direction.</h2>
+      </div>
+      <div>
+        <p class="body">Motivated Data Science graduate with a strong foundation in Python, SQL, Power BI, Excel, data visualization, statistics, and database concepts. Hands-on experience in data cleaning, exploratory data analysis (EDA), dashboard development, and analyzing and interpreting structured datasets to extract actionable insights. Strong problem-solving and analytical skills with a good understanding of machine learning fundamentals. Eager to apply technical and analytical expertise to support data-driven decision-making and business growth as a Data Analyst.</p>
+        <div class="meta-row">
+          <span><i data-lucide="map-pin"></i>Pune, Maharashtra</span>
+          <span><i data-lucide="database"></i>Data • Analytics • AI/ML</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects tech-grid">
+    <div class="section-shell">
+      <div class="projects-head">
+        <p class="label">Selected work / 02</p>
+        <h2>Projects</h2>
+        <p>Analytics dashboards and predictive systems built to answer real questions with data.</p>
+      </div>
+
+      <div class="project-group">
+        <div class="group-head cyan"><i data-lucide="bar-chart-3"></i>Data Analysis<span class="group-line cyan"></span></div>
+        <div class="project-grid" id="dataProjects"></div>
+      </div>
+
+      <div class="project-group">
+        <div class="group-head violet"><i data-lucide="brain-circuit"></i>AI/ML &amp; Python<span class="group-line violet"></span></div>
+        <div class="project-grid" id="aiProjects"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="skills-section">
+    <div class="section-shell">
+      <div class="intro">
+        <p class="label">Capabilities / 03</p>
+        <h2>Tools I work with.</h2>
+        <p>A practical toolkit spanning analysis, visualization, cloud data, programming, and machine learning.</p>
+      </div>
+      <div class="skill-pills" id="skillPills"></div>
+    </div>
+  </section>
+
+  <section id="education" class="education">
+    <div class="section-shell">
+      <div>
+        <p class="label">Foundation / 04</p>
+        <h2>Education</h2>
+        <div id="timeline"></div>
+      </div>
+      <div>
+        <p class="label label-violet">Credentials / 05</p>
+        <h2>Certifications</h2>
+        <div class="cert-list" id="certList"></div>
+        <div class="fuel-note">
+          <p>Artificial Intelligence with Python</p>
+          <p>7-day training • Friends Union For Energising Lives (FUEL)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="section-shell">
+      <p class="label">Contact / 06</p>
+      <h2>Let's turn data into something useful.</h2>
+      <p class="sub">I'm open to data analyst, business intelligence, Python, and entry-level AI/ML opportunities.</p>
+      <div class="contact-actions">
+        <a href="mailto:ommahale19082005@gmail.com" class="btn btn-neon btn-lg"><i data-lucide="mail"></i>ommahale19082005@gmail.com</a>
+        <a href="tel:+918857834630" class="btn btn-neon-outline btn-lg"><i data-lucide="phone"></i>+91 88578 34630</a>
+        <a href="https://www.linkedin.com/in/om-k-mahale-0319om/" target="_blank" rel="noopener noreferrer" class="btn btn-neon-outline btn-lg"><i data-lucide="linkedin"></i>LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="section-shell">
+    <span>© 2026 Om Mahale</span>
+    <span>Data Analyst • AI/ML Developer • Pune</span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script>
+  // ---------- data ----------
+  const dataProjects = [
+    { title: "Rainfall Analysis", description: "Interactive reports and dashboards for exploring rainfall patterns across cloud-based data sources.", tools: ["AWS", "Snowflake", "Power BI", "Tableau"] },
+    { title: "Insurance & UPI Transaction Analysis", description: "Cleaned, queried, and visualized financial datasets to surface transaction and insurance trends.", tools: ["Python", "SQL", "Excel", "Power BI"] },
+    { title: "Student Depression Analysis", description: "Analytical dashboards designed to reveal patterns and indicators in student wellbeing data.", tools: ["SQL", "Tableau", "Power BI"] },
+    { title: "Loan Default Risk Dashboard", description: "Risk-focused dashboard for examining borrower profiles and potential loan default patterns.", tools: ["MS SQL", "Power BI"] },
+    { title: "Demand & Supply Chain Analytics", description: "Performance analysis for demand, supply, and operational decision-making.", tools: ["MySQL", "SQL", "Power BI"] },
+  ];
+
+  const aiProjects = [
+    { title: "Spam Message Classification", description: "Machine learning application that classifies incoming text messages as spam or legitimate.", tools: ["Python", "Machine Learning", "Django"] },
+    { title: "Heart Disease Prediction", description: "Web-based predictive model using health inputs to estimate heart disease risk.", tools: ["Python", "Scikit-learn", "Flask", "HTML/CSS/JS"] },
+  ];
+
+  const skills = ["Python", "SQL", "Power BI", "Excel", "Tableau", "DAX", "MS SQL", "MySQL", "Snowflake", "AWS", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Scikit-learn", "Jupyter", "Git", "Java", "C & C++", "DSA"];
+
+  const education = [
+    { year: "2025 — 2027", title: "Master of Computer Applications", detail: "ATSS IICMR Nigdi, Pune • SGPA 8.38" },
+    { year: "2022 — 2025", title: "Bachelor of Computer Applications", detail: "R.C. Patel IMRD • CGPA 9.29" },
+    { year: "2020 — 2022", title: "Higher Secondary Certificate", detail: "R.L. College Parola • 72.17%", last: true },
+  ];
+
+  const certifications = ["AI & ML with Python", "Master Data Analysis using Python", "Oracle Data Science Professional", "Microsoft Cybersecurity Analyst", "Master Data Analysis"];
+
+  // ---------- render helpers ----------
+  function renderProjectGroup(container, projects, accent) {
+    container.innerHTML = projects.map((p, i) => `
+      <article class="project-card card-lift">
+        <span class="idx ${accent}">0${i + 1}</span>
+        <h3>${p.title}</h3>
+        <p>${p.description}</p>
+        <div class="tool-tags">${p.tools.map(t => `<span class="${accent}">${t}</span>`).join("")}</div>
+      </article>
+    `).join("");
+  }
+
+  function renderSkills() {
+    const el = document.getElementById("skillPills");
+    el.innerHTML = skills.map(s => `<span>${s}</span>`).join("");
+  }
+
+  function renderTimeline() {
+    const el = document.getElementById("timeline");
+    el.innerHTML = education.map(e => `
+      <div class="timeline-item ${e.last ? "last" : ""}">
+        <span class="timeline-dot"></span>
+        <p class="year">${e.year}</p>
+        <h3>${e.title}</h3>
+        <p class="detail">${e.detail}</p>
+      </div>
+    `).join("");
+  }
+
+  function renderCerts() {
+    const el = document.getElementById("certList");
+    el.innerHTML = certifications.map((c, i) => `
+      <div class="cert-item card-lift">
+        <span class="num">0${i + 1}</span>
+        <span class="name">${c}</span>
+      </div>
+    `).join("");
+  }
+
+  renderProjectGroup(document.getElementById("dataProjects"), dataProjects, "cyan");
+  renderProjectGroup(document.getElementById("aiProjects"), aiProjects, "violet");
+  renderSkills();
+  renderTimeline();
+  renderCerts();
+
+  if (window.lucide) lucide.createIcons();
+
+  // ---------- mobile menu ----------
+  const menuToggle = document.getElementById("menuToggle");
+  const mobileMenu = document.getElementById("mobileMenu");
+  let menuOpen = false;
+
+  function setMenuIcon(open) {
+    const iconEl = document.getElementById("menuIcon");
+    iconEl.setAttribute("data-lucide", open ? "x" : "menu");
+    if (window.lucide) lucide.createIcons();
+  }
+
+  menuToggle.addEventListener("click", () => {
+    menuOpen = !menuOpen;
+    mobileMenu.classList.toggle("open", menuOpen);
+    menuToggle.setAttribute("aria-label", menuOpen ? "Close menu" : "Open menu");
+    setMenuIcon(menuOpen);
+  });
+
+  document.querySelectorAll("[data-nav-mobile]").forEach(a => {
+    a.addEventListener("click", () => {
+      menuOpen = false;
+      mobileMenu.classList.remove("open");
+      setMenuIcon(false);
+    });
+  });
+
+  // ---------- scroll-spy active nav ----------
+  const navLinks = document.querySelectorAll("#navLinks a");
+  const sections = ["about", "projects", "skills", "education", "contact"]
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (visible && visible.target.id) {
+      navLinks.forEach(link => {
+        link.classList.toggle("active", link.dataset.nav === visible.target.id);
+      });
+    }
+  }, { rootMargin: "-30% 0px -55%", threshold: [0.1, 0.4] });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
