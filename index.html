@@ -344,6 +344,7 @@
       <p class="hero-desc">I transform structured data into clear insights, decision-ready dashboards, and practical machine learning solutions.</p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-neon btn-lg">View projects <i data-lucide="arrow-right"></i></a>
+       
       </div>
       <a href="#projects" aria-label="Scroll to projects" class="scroll-cue"><i data-lucide="arrow-down"></i></a>
     </div>
@@ -441,16 +442,17 @@
 <script>
   // ---------- data ----------
   const dataProjects = [
-    { title: "Rainfall Analysis", description: "Interactive reports and dashboards for exploring rainfall patterns across cloud-based data sources.", tools: ["AWS", "Snowflake", "Power BI", "Tableau"] },
-    { title: "Insurance & UPI Transaction Analysis", description: "Cleaned, queried, and visualized financial datasets to surface transaction and insurance trends.", tools: ["Python", "SQL", "Excel", "Power BI"] },
-    { title: "Student Depression Analysis", description: "Analytical dashboards designed to reveal patterns and indicators in student wellbeing data.", tools: ["SQL", "Tableau", "Power BI"] },
+    { title: "Rainfall Analysis", description: "Built Power BI/Tableau dashboard analyzing 3,150+ agricultural records across 11 locations, 13 crop types & 16 years (2004-2019) to identify rainfall-yield correlation patterns (AWS, Snowflake).", tools: ["AWS", "Snowflake", "Power BI", "Tableau"] },
+    { title: "Insurance & UPI Transaction Analysis", description: "Built 2 Power BI dashboards analyzing 10,000+ insurance claims (43% rejection rate, $6M+ premiums) and 20,000+ UPI transactions (80% success rate, $19.8M value) to track claims trends & payment behavior.", tools: ["Python", "SQL", "Excel", "Power BI"] },
+    { title: "Student Depression Analysis", description: "Built 5-worksheet Tableau dashboard on 500+ student records, correlating Academic Pressure, Financial Stress & Sleep with depression (50% prevalence rate) using SQL for data prep.", tools: ["SQL", "Tableau", "Power BI"] },
+    { title: "Demand & Supply Chain Analytics", description: "Built Power BI dashboard on 1,000+ order records across 20 products, identifying supply shortages in 87% of orders (avg gap: 70 units/order) to flag inventory risk (MySQL, SQL)", tools: ["MySQL", "SQL", "Power BI"] },
     { title: "Loan Default Risk Dashboard", description: "Risk-focused dashboard for examining borrower profiles and potential loan default patterns.", tools: ["MS SQL", "Power BI"] },
-    { title: "Demand & Supply Chain Analytics", description: "Performance analysis for demand, supply, and operational decision-making.", tools: ["MySQL", "SQL", "Power BI"] },
   ];
 
   const aiProjects = [
     { title: "Spam Message Classification", description: "Machine learning application that classifies incoming text messages as spam or legitimate.", tools: ["Python", "Machine Learning", "Django"] },
     { title: "Heart Disease Prediction", description: "Web-based predictive model using health inputs to estimate heart disease risk.", tools: ["Python", "Scikit-learn", "Flask", "HTML/CSS/JS"] },
+    
   ];
 
   const skills = ["Python", "SQL", "Power BI", "Excel", "Tableau", "DAX", "MS SQL", "MySQL", "Snowflake", "AWS", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Scikit-learn", "Jupyter", "Git", "Java", "C & C++", "DSA"];
